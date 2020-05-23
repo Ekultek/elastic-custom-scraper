@@ -9,7 +9,7 @@ writetofile = input("Name of file to write too? \n\n")
 
 # Writing Function
 def write(data, filename=writetofile):
-    filename2 = "../results/" + writetofile
+    filename2 = "../../results/json/" + writetofile
     f = open(filename2, "a")
     f.write(data + '\r\n')
     f.close()
@@ -72,6 +72,7 @@ def search_keywords(ip_list, keywords):
                 pretty_json = json.dumps(json_object, indent=2)
                 print(ip)
                 print(pretty_json)
+                write(ip)
                 write(json.dumps(json_object, indent=2))
             except:
                 continue
@@ -83,10 +84,10 @@ def search_keywords(ip_list, keywords):
 # search index
 
 # START OF THE PROGRAM
-ip_list = get_target_ips('elasticsearch.size_in_bytes:>1000000000 country:"US"')
+ip_list = get_target_ips('elasticsearch.size_in_bytes:>1000000000 country:"CN"')
 print(ip_list)
 #keyword_list = ['patient', 'Bearer', 'Basic', 'https', 'api_key', 'secret', 'private','aws']
-keyword_list_cn = ['病毒','海军','清华大学']
-keyword_list = ["gmail", "cookie"]
+keyword_list_cn = ['病毒','海军','清华大学']57388:
+keyword_list = ["@", "gmail"]
 search_keywords(ip_list, keyword_list)
 
