@@ -16,8 +16,8 @@ def write(data, filename=writetofile):
 
 def get_target_ips(search_query):
     ### BINARYEDGE SEARCH
-    be = BinaryEdge('a68a0cb1-3c15-44e6-b79d-1ca7e7ea368d')
-    #search_query = 'elasticsearch.docs:>50000 elasticsearch.size_in_bytes:>500000000 elasticsearch.size_in_bytes:<50000000000'
+    be = BinaryEdge('9e580d9d-13ca-4ac6-8f2d-791a67ce4eca')
+    #search_query = 'elasticsearch.docs:>50000 elasticsearch.size_in_bytes:>500000000 country:"CN"'
 
     ### ITERATE THROUGH BINARY EDGE RESULTS
     flag = 0
@@ -84,10 +84,10 @@ def search_keywords(ip_list, keywords):
 # search index
 
 # START OF THE PROGRAM
-ip_list = get_target_ips('elasticsearch.size_in_bytes:>1000000000 country:"CN"')
+ip_list = get_target_ips('elasticsearch.size_in_bytes:<1000000000 country:"CN"')
 print(ip_list)
 #keyword_list = ['patient', 'Bearer', 'Basic', 'https', 'api_key', 'secret', 'private','aws']
-keyword_list_cn = ['病毒','海军','清华大学']57388:
-keyword_list = ["@", "gmail"]
-search_keywords(ip_list, keyword_list)
+keyword_list_cn = ['涉恐人员','出入境边检系统','黑名单','公安部七类重点人员基础信息','两客一危','新网上办案系统','成都市肆零肆网络科技有限公司']
+#keyword_list = ["@", "gmail"]
+search_keywords(ip_list, keyword_list_cn)
 
