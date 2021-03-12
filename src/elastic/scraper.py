@@ -1,18 +1,19 @@
-import requests
 import json
-import io
-import pickle
+
+import requests
 from pybinaryedge import BinaryEdge
-import pandas as pd
 
 writetofile = input("Name of file to write too? \n\n")
+writetofile_meta = ""
 
 # Writing Function
 def write(data, filename=writetofile):
     filename2 = "../../results/json/" + writetofile
-    f = open(filename2, "a")
+    f = open(filename2, "a", encoding="utf-8")
     f.write(data + '\r\n')
-    f.close()
+    #print("write")
+    #with open(filename2, 'a') as outfile:
+        #json.dump(data, outfile)
 
 def get_target_ips(search_query):
     ### BINARYEDGE SEARCH
@@ -43,7 +44,7 @@ def get_target_ips(search_query):
                     print(cluster_target)
             api_results_set = api_results_set + 1
     print(ip_list_str)
-    write(ip_list_str)
+    #write(ip_list_str)
     return ip_list
 
 #def get_indices():
@@ -68,13 +69,19 @@ def search_keywords(ip_list, keywords):
 
             # Test for pulling json object
             try:
+                #json_object = r.json()
+
                 json_object = r.json()
-                pretty_json = json.dumps(json_object, indent=2)
+                print(json_object)
+                #pretty_json = json.dumps(json_object, indent=2)
                 print(ip)
-                print(pretty_json)
-                write(ip)
-                write(json.dumps(json_object, indent=2))
+                #print(json_object)
+                #write(ip)
+                print("maybe write")
+                write(json_object)
+                #write(json.dumps(json_object, indent=2))
             except:
+                print("ERROR")
                 continue
             print(ip + "   " + keyword)
 
@@ -84,10 +91,9 @@ def search_keywords(ip_list, keywords):
 # search index
 
 # START OF THE PROGRAM
-ip_list = get_target_ips('elasticsearch.size_in_bytes:<1000000000 country:"CN"')
+ip_list = get_target_ips('elasticsearch.docs:<1000000000 elasticsearch.size_in_bytes:>1000000000 country:"CN"')
 print(ip_list)
 #keyword_list = ['patient', 'Bearer', 'Basic', 'https', 'api_key', 'secret', 'private','aws']
-keyword_list_cn = ['涉恐人员','出入境边检系统','黑名单','公安部七类重点人员基础信息','两客一危','新网上办案系统','成都市肆零肆网络科技有限公司']
-#keyword_list = ["@", "gmail"]
+keyword_list_cn = ['"xinjiang"', '"涉恐人员"','"出入境边检系统"','"黑名单"','"公安部七类重点人员基础信息"','"两客一危"','"新网上办案系统"','"成都市肆零肆网络科技有限公司"']
 search_keywords(ip_list, keyword_list_cn)
 
