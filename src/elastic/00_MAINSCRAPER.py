@@ -9,12 +9,13 @@ writetofile_meta = ''
 # Writing Function
 def write(data, filename=writetofile):
     filename2 = "../../results/json/" + writetofile
-    #f = open(filename2, "a", encoding="utf-8")
+    f = open(filename2, "a", encoding="utf-8")
     #f.write(data + '\r\n')
     print("write")
     with open(filename2, 'a') as outfile:
         outfile.write(data)
         #outfile.write(',')
+
 def get_target_ips(search_query):
     ### BINARYEDGE SEARCH
     be = BinaryEdge('9e580d9d-13ca-4ac6-8f2d-791a67ce4eca')
@@ -34,7 +35,7 @@ def get_target_ips(search_query):
         # Print targets and add to global list 20 at a time
         else:
             for ip in results['events']:
-                if api_results_set > 20: # limiting this block of code to 7 API result sets
+                if api_results_set > 2: # limiting this block of code to 7 API result sets
                     flag = flag + 1
                     break
                 else:
@@ -45,6 +46,7 @@ def get_target_ips(search_query):
             api_results_set = api_results_set + 1
     print(ip_list_str)
     write(ip_list_str)
+    write("\n")
     return ip_list
 
 #def get_indices():
