@@ -1,20 +1,20 @@
 import json
-
 import requests
+import pprint
 from pybinaryedge import BinaryEdge
 
 writetofile = input("Name of file to write too? \n\n")
-writetofile_meta = ""
+writetofile_meta = ''
 
 # Writing Function
 def write(data, filename=writetofile):
     filename2 = "../../results/json/" + writetofile
-    f = open(filename2, "a", encoding="utf-8")
-    f.write(data + '\r\n')
-    #print("write")
-    #with open(filename2, 'a') as outfile:
-        #json.dump(data, outfile)
-
+    #f = open(filename2, "a", encoding="utf-8")
+    #f.write(data + '\r\n')
+    print("write")
+    with open(filename2, 'a') as outfile:
+        outfile.write(data)
+        #outfile.write(',')
 def get_target_ips(search_query):
     ### BINARYEDGE SEARCH
     be = BinaryEdge('9e580d9d-13ca-4ac6-8f2d-791a67ce4eca')
@@ -34,7 +34,7 @@ def get_target_ips(search_query):
         # Print targets and add to global list 20 at a time
         else:
             for ip in results['events']:
-                if api_results_set > 30: # limiting this block of code to 7 API result sets
+                if api_results_set > 20: # limiting this block of code to 7 API result sets
                     flag = flag + 1
                     break
                 else:
@@ -44,7 +44,7 @@ def get_target_ips(search_query):
                     print(cluster_target)
             api_results_set = api_results_set + 1
     print(ip_list_str)
-    #write(ip_list_str)
+    write(ip_list_str)
     return ip_list
 
 #def get_indices():
@@ -57,7 +57,7 @@ def search_keywords(ip_list, keywords):
     for ip in ip_list:
         for keyword in keywords:
             print("***REQUESTS***\n")
-            print(keyword)
+            print(ip, keyword)
             query = 'http://' + ip + '/_search?q=' + keyword + '&pretty'
             #query = 'http://' + ip + '/_cat/indices?s=index&v'
 
@@ -69,21 +69,21 @@ def search_keywords(ip_list, keywords):
 
             # Test for pulling json object
             try:
-                #json_object = r.json()
 
                 json_object = r.json()
-                print(json_object)
-                #pretty_json = json.dumps(json_object, indent=2)
-                print(ip)
-                #print(json_object)
-                #write(ip)
+                pretty_json = json.dumps(json_object, indent=2)
+                pretty_json_decoded = pretty_json.encode('ascii').decode('unicode-escape')
+
+                print(ip + "   " + keyword)
+                print(pretty_json_decoded)
+
+
                 print("maybe write")
-                write(json_object)
-                #write(json.dumps(json_object, indent=2))
+                write(pretty_json_decoded)
             except:
                 print("ERROR")
                 continue
-            print(ip + "   " + keyword)
+
 
 ### SPECIFIC INDEX SEARCHES - PANDAS
 # load different set of data
@@ -91,9 +91,10 @@ def search_keywords(ip_list, keywords):
 # search index
 
 # START OF THE PROGRAM
-ip_list = get_target_ips('elasticsearch.docs:<1000000000 elasticsearch.size_in_bytes:>1000000000 country:"CN"')
+#write("hello")
+ip_list = get_target_ips('elasticsearch.docs:<1000000000 elasticsearch.docs:>10000 country:"CN"')
 print(ip_list)
 #keyword_list = ['patient', 'Bearer', 'Basic', 'https', 'api_key', 'secret', 'private','aws']
-keyword_list_cn = ['"xinjiang"', '"涉恐人员"','"出入境边检系统"','"黑名单"','"公安部七类重点人员基础信息"','"两客一危"','"新网上办案系统"','"成都市肆零肆网络科技有限公司"']
+keyword_list_cn = ['人'] #'"涉恐人员"','"出入境边检系统"','"黑名单"','"公安部七类重点人员基础信息"','"两客一危"','"新网上办案系统"','"成都市肆零肆网络科技有限公司"']
 search_keywords(ip_list, keyword_list_cn)
 
