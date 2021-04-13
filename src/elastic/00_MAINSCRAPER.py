@@ -76,11 +76,11 @@ def search_keywords(ip_list, keywords):
                 pretty_json = json.dumps(json_object, indent=2)
                 pretty_json_decoded = pretty_json.encode('ascii').decode('unicode-escape')
 
-                print(ip + "   " + keyword)
+                metadataIpKeyword = ip + "   " + keyword
                 print(pretty_json_decoded)
 
 
-                write(ip)
+                write(metadataIpKeyword)
                 write(pretty_json_decoded)
             except:
                 print("ERROR")
