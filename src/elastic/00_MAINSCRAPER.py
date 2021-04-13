@@ -80,7 +80,7 @@ def search_keywords(ip_list, keywords):
                 print(pretty_json_decoded)
 
 
-                print("maybe write")
+                write(ip)
                 write(pretty_json_decoded)
             except:
                 print("ERROR")
