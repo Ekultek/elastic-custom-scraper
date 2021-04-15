@@ -1,20 +1,17 @@
-# 3K Toolkit 
+## 3K Toolkit 
+*Tailored Data Collection for Eurasia* 
 
-### Tailored Data Collection for Eurasia 
+### Folder Structure
 ```
-3K Toolkit
 ├── .gitignore
 ├── README.md
 ├── pyvenv.cfg
 ├── requirements.txt
 ├── results
 │   ├── json
-│   │   ├── unicodetest002.json
-│   │   ├── unicodetest003.json
-│   │   ├── unicodetest004.json
-│   │   └── unicodetest01.json
+│   │   └── example.json
 │   └── text
-│       └── xiaomi.txt
+│       └── example.txt
 └── src
     ├── dorks
     │   ├── BINARYEDGE.md
@@ -48,8 +45,23 @@
         └── scrapy.cfg
 ```
 
-2. Run script every 8 hours on BinaryEdge.
+1. Useful software, divided into different programs based on utility, is available under the `src` file.
 
-3. All JSON should be uploaded to a Google Cloud bucket after completion. Consider splitting into 10 MB chunks each.
 
-4. Work in parellism?
+2. `git pull` should take care of any updates most of the time. Run `git stash` if having any issues. Be aware local changes will be overwritten.
+
+
+3. Remember to run `pip3 install -r requirements.txt`. If feeling special also spin up a `virtualenv`.
+
+
+4. `README.md` can be found in every software folder for each utility.
+
+
+5. Explanation of Utilities:
+      - Dorks: useful queries for Shodan and BinaryEdge
+      - Elastic: scraper for all elastic databases based on keywords
+      - Elasticdump: download from a cluster selected indices as JSON
+      - Kibana: [draft] kibana scraper
+      - Miscprojects: [draft] 
+      - Scrapy: [draft] advanced web/spider crawler 
+      - Social: [draft] Instagram and Twitter scraping / analysis tools
