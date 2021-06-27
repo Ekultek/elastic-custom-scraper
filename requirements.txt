@@ -34,7 +34,7 @@ service-identity==18.1.0
 six==1.15.0
 soupsieve==2.1
 Twisted==21.2.0
-urllib3==1.26.3
+urllib3==1.26.5
 w3lib==1.22.0
 whois==0.9.7
 zope.interface==5.3.0
