@@ -35,7 +35,7 @@ def get_target_ips(search_query):
         # Print targets and add to global list 20 at a time
         else:
             for ip in results['events']:
-                if api_results_set > 2: # limiting this block of code to 7 API result sets
+                if api_results_set > 15: # limiting this block of code to 7 API result sets
                     flag = flag + 1
                     break
                 else:
@@ -94,9 +94,9 @@ def search_keywords(ip_list, keywords):
 
 # START OF THE PROGRAM
 #write("hello")
-ip_list = get_target_ips('elasticsearch.docs:<1000000000 elasticsearch.docs:>10000 country:"CN"')
+ip_list = get_target_ips('elasticsearch.docs:>10000 country:"CN"')
 print(ip_list)
 #keyword_list = ['patient', 'Bearer', 'Basic', 'https', 'api_key', 'secret', 'private','aws']
-keyword_list_cn = ['人'] #'"涉恐人员"','"出入境边检系统"','"黑名单"','"公安部七类重点人员基础信息"','"两客一危"','"新网上办案系统"','"成都市肆零肆网络科技有限公司"']
+keyword_list_cn = ['"岳庆芝"'] #'"涉恐人员"','"出入境边检系统"','"黑名单"','"公安部七类重点人员基础信息"','"两客一危"','"新网上办案系统"','"成都市肆零肆网络科技有限公司"']
 search_keywords(ip_list, keyword_list_cn)
 
