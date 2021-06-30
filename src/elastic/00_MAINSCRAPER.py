@@ -6,6 +6,7 @@ from pybinaryedge import BinaryEdge
 from datetime import datetime
 
 config = configparser.ConfigParser()
+config.read('keywords.txt')
 
 now = datetime.now()
 date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
