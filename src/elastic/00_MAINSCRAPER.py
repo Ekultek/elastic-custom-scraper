@@ -2,6 +2,7 @@ import json
 import requests
 import pprint
 import configparser
+import uuid
 from pybinaryedge import BinaryEdge
 from datetime import datetime
 
@@ -10,7 +11,7 @@ config.read('keywords.txt')
 
 now = datetime.now()
 date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-writetofile = config['default']['writetofile'] + '_' + date_time
+writetofile = config['default']['writetofile'] + '_' + str(uuid.uuid1())
 
 # Writing Function
 def write(data, filename=writetofile):
@@ -41,7 +42,7 @@ def get_target_ips(search_query):
         # Print targets and add to global list 20 at a time
         else:
             for ip in results['events']:
-                if api_results_set > 15: # limiting this block of code to 7 API result sets
+                if api_results_set > 3: # limiting this block of code to 7 API result sets
                     flag = flag + 1
                     break
                 else:
@@ -51,7 +52,7 @@ def get_target_ips(search_query):
                     print(cluster_target)
             api_results_set = api_results_set + 1
     print(ip_list_str)
-    write(ip_list_str)
+    write(ip_list_str, writetofile)
     write("\n")
     return ip_list
 
