@@ -1,10 +1,15 @@
 import json
 import requests
 import pprint
+import configparser
 from pybinaryedge import BinaryEdge
+from datetime import datetime
 
-writetofile = input("Name of file to write too? \n\n")
-writetofile_meta = ''
+config = configparser.ConfigParser()
+
+now = datetime.now()
+date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+writetofile = config['default']['writetofile'] + '_' + date_time
 
 # Writing Function
 def write(data, filename=writetofile):
@@ -53,8 +58,9 @@ def get_target_ips(search_query):
     #https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_fwf.html
 
 
-def search_keywords(ip_list, keywords):
+def search_keywords(ip_list):
     ### GLOBAL CLUSTER SEARCHES - REQUESTS
+    keywords = config['default']['keywords'].split(',')
 
     for ip in ip_list:
         for keyword in keywords:
@@ -93,10 +99,8 @@ def search_keywords(ip_list, keywords):
 # search index
 
 # START OF THE PROGRAM
-#write("hello")
-ip_list = get_target_ips('elasticsearch.docs:>10000 country:"CN"')
+ip_list = get_target_ips(config['default']['search'])
 print(ip_list)
-#keyword_list = ['patient', 'Bearer', 'Basic', 'https', 'api_key', 'secret', 'private','aws']
-keyword_list_cn = ['"岳庆芝"'] #'"涉恐人员"','"出入境边检系统"','"黑名单"','"公安部七类重点人员基础信息"','"两客一危"','"新网上办案系统"','"成都市肆零肆网络科技有限公司"']
-search_keywords(ip_list, keyword_list_cn)
+#keyword_list_cn = ['"岳庆芝"'] #'"涉恐人员"','"出入境边检系统"','"黑名单"','"公安部七类重点人员基础信息"','"两客一危"','"新网上办案系统"','"成都市肆零肆网络科技有限公司"']
+search_keywords(ip_list)
 

@@ -1,0 +1,4 @@
+[default]
+search = elasticsearch.docs:>10000 country:"CN"
+keywords = patient,bearer,basic,https,api_key,secret,private,aws
+writetofile = mysearch
