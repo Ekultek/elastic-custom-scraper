@@ -1,7 +1,8 @@
 [default]
-search = elasticsearch.docs:>10000 country:"CN"
-keywords = patient,bearer,basic,https,api_key,secret,private,aws
+search = elasticsearch.docs:>10000 -country:"CN"
+keywords = patient,nuclear,https,procurement,secret, medical
 writetofile = mysearch
-api_page_results = 5
-gcs_bucket = ""
+api_page_results = 1
+gcp_project = x-int2project-001
+gcs_bucket = elastic-main-scanner-001-a
 writetolocal = 0
