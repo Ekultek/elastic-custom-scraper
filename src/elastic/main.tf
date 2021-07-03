@@ -6,3 +6,11 @@ resource "google_artifact_registry_repository" "my-repo" {
   description = "example docker repository"
   format = "DOCKER"
 }
+
+# Storage Bucket
+
+# Source Repo created?
+
+# Cloud Build Trigger?
+
+#

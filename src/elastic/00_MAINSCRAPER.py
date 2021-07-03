@@ -40,11 +40,10 @@ def setup_logging():
 
 # Writing Function
 def write(data, filename=writetofile):
-    filename2 = "../../results/json/" + writetofile
-    f = open(filename2, "a", encoding="utf-8")
+    f = open(writetofile, "a", encoding="utf-8")
     #f.write(data + '\r\n')
     print("write")
-    with open(filename2, 'a') as outfile:
+    with open(writetofile, 'a') as outfile:
         outfile.write(data)
         #outfile.write(',')
 
@@ -56,7 +55,7 @@ def complete_run():
             storage_client = storage.Client()
             bucket = storage_client.bucket(config["default"]["gcs_bucket"])
             blob = bucket.blob(writetofile)
-            blob.upload_from_filename('../../results/json/' + writetofile)
+            blob.upload_from_filename(writetofile)
             os.remove(writetofile)
         except Exception as e:
             print(e)

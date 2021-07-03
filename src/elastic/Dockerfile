@@ -10,6 +10,6 @@ COPY 00_MAINSCRAPER.py /coderun
 COPY requirements.txt /coderun
 COPY keywords.txt /coderun
 
-RUN pip3 install -trusted-host pypi.python.org -r requirements.txt
+RUN pip3 install --trusted-host pypi.python.org -r requirements.txt
 
 ENTRYPOINT ["python", "00_MAINSCRAPER.py"]
