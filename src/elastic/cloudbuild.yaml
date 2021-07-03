@@ -2,17 +2,24 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   id: container_build
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/main-elastic-scanner-001:$SHORT_SHA', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/main-elastic-scanner-001', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  id: container_push
-  args: ["push", "gcr.io/$PROJECT_ID/main-elastic-scanner-001:$SHORT_SHA"]
+  id: container_tag
+  args: ['tag', 'gcr.io/$PROJECT_ID/main-elastic-scanner-001:latest', 'gcr.io/$PROJECT_ID/main-elastic-scanner-001:latest']
   waitFor:
     - container_build
+- name: 'gcr.io/cloud-builders/docker'
+  id: container_push
+  args: ["push", "gcr.io/$PROJECT_ID/main-elastic-scanner-001"]
+  waitFor:
+    - container_tag
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: ['run', 'deploy', 'elastic-scanner-001', '--image', 'gcr.io/$PROJECT_ID/main-elastic-scanner-001$SHORT_SHA', '--region', 'us-central1', '--platform', 'managed']
+  args: ['run', 'deploy', 'elastic-scanner-001', '--image', 'gcr.io/$PROJECT_ID/main-elastic-scanner-001', '--region', 'us-central1', '--platform', 'managed']
   env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-east4-b'
     - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
+  waitFor:
+    container_push
 images: ['gcr.io/$PROJECT_ID/main-elastic-scanner-001:$SHORT_SHA']
