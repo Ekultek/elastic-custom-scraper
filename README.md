@@ -1,6 +1,8 @@
 ## 3K Toolkit 
 *Tailored Data Collection for Eurasia* 
 
+` gcloud components install docker-credential-gcr cloud-build-local beta alpha kubectl `
+
 ### Folder Structure
 ```
 ├── .gitignore
